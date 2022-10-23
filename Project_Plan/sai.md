@@ -1,20 +1,24 @@
 # System as Is
 
 ## Actors
-	Customer
-	Staff
+
+- Customer
+- Staff
 
 ## Staff Creates Order
-	Staff creates receipt
-	Staff puts customers name, current date and time as a header
-	Staff puts ordered products, their quantities, and respective prices
-	Staff puts total amount for order on receipt.
+
+1. Staff creates receipt
+2. Staff puts customers name, current date and time as a header
+3. Staff puts ordered products, their quantities, and respective prices
+4. Staff puts total amount for order on receipt.
 
 ## Staff Persists Order
-	Staff enters receipt information into spreadsheet
+
+1. Staff enters receipt information into spreadsheet
 
 ## Staff Creates Financial Report
-	Staff queries spreadsheet and consolidates information
+
+1. Staff queries spreadsheet and consolidates information
 
 ## Staff Searches for Products
 	
