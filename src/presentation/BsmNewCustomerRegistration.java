@@ -15,7 +15,7 @@ public class BsmNewCustomerRegistration {
     private DatePicker dob;
     @FXML
     private CheckBox isProfessor,isStudent;
-    
+
     @FXML
     protected void onRegisterClick() {
         welcomeText.setText(String.format("First Name: %s, Last Name: %s, " +
