@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Main" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="sample.Main" />
+  <configuration default="false" name="Main (ALWAYS USE THIS)" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="Main" />
     <module name="bronco-store-management-software" />
     <option name="VM_PARAMETERS" value="--module-path lib --add-modules javafx.controls,javafx.fxml" />
     <extension name="coverage">
