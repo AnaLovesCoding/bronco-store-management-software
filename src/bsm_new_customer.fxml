@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.BsmNewCustomerRegistration">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.BsmNewCustomerRegistrationController">
     <children>
-        <Label alignment="CENTER" layoutX="319.0" layoutY="62.0" text="Register Customer" textAlignment="CENTER" textFill="#2883bf">
+        <Label alignment="CENTER" layoutX="319.0" layoutY="46.0" text="Register Customer" textAlignment="CENTER" textFill="#2883bf">
             <font>
                 <Font size="23.0" />
             </font>
@@ -36,7 +36,7 @@
             </font>
         </Label>
         <DatePicker fx:id="dob" layoutX="178.0" layoutY="237.0" prefHeight="26.0" prefWidth="160.0" promptText="Enter Date of Birth" />
-        <Button defaultButton="true" layoutX="306.0" layoutY="485.0" mnemonicParsing="false" onAction="#onRegisterClick" prefHeight="44.0" prefWidth="204.0" text="REGISTER NOW" textFill="#00257c">
+        <Button defaultButton="true" layoutX="298.0" layoutY="407.0" mnemonicParsing="false" onAction="#onRegisterClick" prefHeight="44.0" prefWidth="204.0" text="REGISTER NOW" textFill="#00257c">
             <font>
                 <Font size="18.0" />
             </font>
@@ -67,9 +67,14 @@
         <CheckBox fx:id="isProfessor" layoutX="237.0" layoutY="353.0" mnemonicParsing="false" text="Customer is a Professor" />
         <CheckBox fx:id="isStudent" layoutX="442.0" layoutY="353.0" mnemonicParsing="false" text="Customer is a Student" />
         <ProgressIndicator disable="true" layoutX="382.0" layoutY="409.0" progress="0.0" visible="false" />
-      <TextField fx:id="errorField" editable="false" layoutX="98.0" layoutY="103.0" prefHeight="26.0" prefWidth="318.0" visible="false">
+      <Button defaultButton="true" layoutX="294.0" layoutY="476.0" mnemonicParsing="false" onAction="#onCancelClick" prefHeight="44.0" prefWidth="204.0" text="CANCEL" textFill="#00257c">
          <font>
-            <Font name="System Bold" size="13.0" />
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <TextField fx:id="errorField" alignment="TOP_CENTER" editable="false" layoutX="218.0" layoutY="94.0" prefHeight="35.0" prefWidth="364.0" visible="false">
+         <font>
+            <Font name="System Bold" size="18.0" />
          </font></TextField>
     </children>
     <effect>

@@ -1,12 +1,23 @@
 package presentation;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
-public class BsmNewCustomerRegistration {
+import java.io.IOException;
+
+public class BsmNewCustomerRegistrationController {
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
     @FXML
     private TextArea welcomeText;
     @FXML
@@ -17,7 +28,7 @@ public class BsmNewCustomerRegistration {
     private CheckBox isProfessor,isStudent;
 
     @FXML
-    protected void onRegisterClick() {
+    protected void onRegisterClick(ActionEvent event)throws IOException {
         if(firstName.getText().isEmpty()){
             errorField.setVisible(true);
             errorField.setText(String.format("First name cannot be empty"));
@@ -86,8 +97,37 @@ public class BsmNewCustomerRegistration {
                     city.getText(), state.getText(),
                     zip.getText(), broncoID.getText(),
                     isProfessor.isSelected(), isStudent.isSelected()));
-        }
 
+            if(isStudent.isSelected() && (isProfessor.isSelected()==false)){
+                Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("student_registration.fxml"));
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            }
+          if(isProfessor.isSelected() && (isStudent.isSelected()==false)){
+              Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("professor_registration.fxml"));
+              stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+              scene = new Scene(root);
+              stage.setScene(scene);
+              stage.show();
+          }
+          if(isProfessor.isSelected() && isStudent.isSelected()){
+              Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("both_student_professor_registration.fxml"));
+              stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+              scene = new Scene(root);
+              stage.setScene(scene);
+              stage.show();
+          }
+        }
+    }
+    @FXML
+    protected void onCancelClick(ActionEvent event)throws IOException {
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("bsm_home.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
 }
