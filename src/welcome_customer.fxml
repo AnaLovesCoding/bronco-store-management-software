@@ -18,7 +18,7 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Button layoutX="319.0" layoutY="258.0" mnemonicParsing="false" text="Check Order Status" textFill="#460be8">
+      <Button layoutX="319.0" layoutY="258.0" mnemonicParsing="false" text="Check Order Status" onAction="#onCheckoutClick" textFill="#460be8">
          <font>
             <Font size="18.0" />
          </font>

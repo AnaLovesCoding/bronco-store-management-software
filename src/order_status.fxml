@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.orderStatusController">
+    <children>
+        <Label alignment="CENTER" layoutX="319.0" layoutY="62.0" text="Check Order Status" textAlignment="CENTER" textFill="#2883bf">
+            <font>
+                <Font size="23.0" />
+            </font>
+        </Label>
+      <Label layoutX="174.0" layoutY="155.0" text="Order ID">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField layoutX="262.0" layoutY="153.0" prefHeight="26.0" prefWidth="276.0" promptText="Enter Order ID" />
+      <Button layoutX="561.0" layoutY="148.0" mnemonicParsing="false" text="Submit">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <TextArea layoutX="162.0" layoutY="200.0" prefHeight="265.0" prefWidth="483.0" />
+      <Button layoutX="349.0" layoutY="513.0" mnemonicParsing="false" onAction="#onLogoutClick" text="Logout">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+    </children>
+    <effect>
+        <DropShadow />
+    </effect>
+</AnchorPane>
