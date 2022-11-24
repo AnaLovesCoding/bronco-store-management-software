@@ -33,6 +33,11 @@
             <TableColumn prefWidth="127.67242431640625" text="Quantity" />
         </columns>
       </TableView>
+      <Button layoutX="94.0" layoutY="516.0" mnemonicParsing="false" text="Add To Cart">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
     </children>
     <effect>
         <DropShadow />
