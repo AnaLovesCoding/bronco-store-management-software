@@ -16,6 +16,6 @@
         <Button layoutX="141.0" layoutY="126.0" mnemonicParsing="false" onAction="#switchToNewCustomer"
                 text="NEW CUSTOMER" textFill="#1a8da1"/>
         <Button layoutX="350.0" layoutY="125.0" mnemonicParsing="false" text="RETURNING CUSTOMER" onAction="#switchToReturnCustomer" textFill="#3ea445"/>
-        <Button layoutX="584.0" layoutY="126.0" mnemonicParsing="false" text="STORE ADMIN" textFill="#5634c6"/>
+        <Button layoutX="584.0" layoutY="126.0" mnemonicParsing="false" text="STORE ADMIN" onAction="#switchToAdmin" textFill="#5634c6"/>
     </children>
 </AnchorPane>

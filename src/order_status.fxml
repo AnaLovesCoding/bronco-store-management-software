@@ -20,8 +20,8 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField layoutX="262.0" layoutY="153.0" prefHeight="26.0" prefWidth="276.0" promptText="Enter Order ID" />
-      <Button layoutX="561.0" layoutY="148.0" mnemonicParsing="false" text="Submit">
+      <TextField fx:id="orderID" layoutX="262.0" layoutY="153.0" prefHeight="26.0" prefWidth="276.0" promptText="Enter Order ID" />
+      <Button layoutX="561.0" layoutY="148.0" mnemonicParsing="false" onAction="#onSubmitClick" text="Submit">
          <font>
             <Font size="18.0" />
          </font>
@@ -32,6 +32,7 @@
             <Font size="18.0" />
          </font>
       </Button>
+      <TextField layoutX="269.0" layoutY="105.0" prefHeight="26.0" prefWidth="270.0" fx:id="errorField" visible="false" />
     </children>
     <effect>
         <DropShadow />
