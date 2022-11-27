@@ -38,12 +38,12 @@ public class updatePriceController {
     protected void onUpdatePriceClick(ActionEvent event) throws IOException {
         if(productID.getText().isEmpty()){
             errorField.setVisible(true);
-            errorField.setText(String.format("Product ID cannot be empty"));
+            errorField.setText(String.format("ShopProduct ID cannot be empty"));
             return;
         }
         if(productName.getText().isEmpty()){
             errorField.setVisible(true);
-            errorField.setText(String.format("Product Name cannot be empty"));
+            errorField.setText(String.format("ShopProduct Name cannot be empty"));
             return;
         }
         if(price.getText().isEmpty()){

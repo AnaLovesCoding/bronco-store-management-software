@@ -15,29 +15,29 @@
                 <Font size="23.0" />
             </font>
         </Label>
-      <Button layoutX="634.0" layoutY="516.0" mnemonicParsing="false" onAction="#switchToViewCart" text="View Cart">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
-      <Button layoutX="646.0" layoutY="55.0" mnemonicParsing="false" onAction="#onLogoutClick" prefHeight="35.0" prefWidth="98.0" text="Logout">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
-      <TableView layoutX="94.0" layoutY="147.0" prefHeight="317.0" prefWidth="633.0">
-        <columns>
-          <TableColumn prefWidth="75.0" text="ID" />
-          <TableColumn prefWidth="309.70654296875" text="Product Name" />
-            <TableColumn prefWidth="117.79339599609375" text="Price" />
-            <TableColumn prefWidth="127.67242431640625" text="Quantity" />
-        </columns>
-      </TableView>
-      <Button layoutX="94.0" layoutY="516.0" mnemonicParsing="false" text="Add To Cart">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
+        <Button layoutX="634.0" layoutY="516.0" mnemonicParsing="false" onAction="#switchToViewCart" text="View Cart">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
+        <Button layoutX="646.0" layoutY="55.0" mnemonicParsing="false" onAction="#onLogoutClick" prefHeight="35.0" prefWidth="98.0" text="Logout">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
+        <TableView fx:id="shopTable" layoutX="94.0" layoutY="147.0" prefHeight="317.0" prefWidth="633.0">
+            <columns>
+                <TableColumn fx:id="id" prefWidth="75.0" text="ID" />
+                <TableColumn fx:id="name" prefWidth="309.70654296875" text="Product Name" />
+                <TableColumn fx:id="price" prefWidth="117.79339599609375" text="Price" />
+                <TableColumn fx:id="quantity" prefWidth="127.67242431640625" text="Quantity" />
+            </columns>
+        </TableView>
+        <Button layoutX="94.0" layoutY="516.0" mnemonicParsing="false" text="Add To Cart">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
     </children>
     <effect>
         <DropShadow />
