@@ -23,6 +23,7 @@ public class BsmHomeController {
         stage.setScene(scene);
         stage.show();
     }
+
     @FXML
     public void switchToReturnCustomer(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("welcome_customer.fxml"));
@@ -32,13 +33,13 @@ public class BsmHomeController {
         stage.show();
 
     }
+
     @FXML
-    protected void switchToAdmin (ActionEvent event) throws IOException {
+    protected void switchToAdmin(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("admin.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
-
 }

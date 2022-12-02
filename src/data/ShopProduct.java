@@ -1,33 +1,32 @@
 package data;
 
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 
 public class ShopProduct {
 
-    private final SimpleIntegerProperty id;
+    private final SimpleLongProperty id;
     private final SimpleStringProperty name;
-    private final SimpleDoubleProperty price;
+    private final SimpleLongProperty price;
     private ComboBox quantity;
 
-    public ShopProduct(int id, String name, Double price, ObservableList<Integer> quantityList) {
+    public ShopProduct(Long id, String name, Long price, ObservableList<Integer> quantityList) {
         ComboBox quantityComboBox = new ComboBox(quantityList);
         quantityComboBox.getSelectionModel().select(0);
 
-        this.id = new SimpleIntegerProperty(id);
+        this.id = new SimpleLongProperty(id);
         this.name = new SimpleStringProperty(name);
-        this.price = new SimpleDoubleProperty(price);
+        this.price = new SimpleLongProperty(price);
         this.quantity = quantityComboBox;
     }
 
-    public int getId() {
+    public Long getId() {
         return id.get();
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id.set(id);
     }
 
@@ -39,11 +38,11 @@ public class ShopProduct {
         this.name.set(name);
     }
 
-    public double getPrice() {
+    public Long getPrice() {
         return price.get();
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Long price) {
         this.price.set(price);
     }
 

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.professorRegistrationController">
+    <children>
+        <Label alignment="CENTER" layoutX="319.0" layoutY="62.0" text="Register Professor" textAlignment="CENTER" textFill="#2883bf">
+            <font>
+                <Font size="23.0" />
+            </font>
+        </Label>
+      <Label layoutX="272.0" layoutY="161.0" text="Department">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="department" layoutX="370.0" layoutY="157.0" promptText="Enter Your Department" />
+      <Label layoutX="272.0" layoutY="210.0" text="Office">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="office" layoutX="370.0" layoutY="206.0" promptText="Enter Your Office" />
+      <Label layoutX="259.0" layoutY="267.0" text="Research">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button layoutX="457.0" layoutY="368.0" mnemonicParsing="false" text="Submit" onAction="#onSubmitClick" textFill="#2883bf">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="269.0" layoutY="376.0" mnemonicParsing="false" text="Cancel" onAction="#onCancelClick" textFill="#2883bf">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <TextArea fx:id="professorDetailsText" layoutX="583.0" layoutY="475.0" prefHeight="110.0" prefWidth="182.0" />
+      <TextField fx:id="errorText" editable="false" layoutX="264.0" layoutY="113.0" prefHeight="26.0" prefWidth="167.0" visible="false">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="research" layoutX="372.0" layoutY="263.0" promptText="Enter Your Research" />
+    </children>
+    <effect>
+        <DropShadow />
+    </effect>
+</AnchorPane>

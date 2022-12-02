@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<jpackage-state version="19" platform="macOS">
+  <app-version>19.0.0</app-version>
+  <main-launcher>SceneBuilder</main-launcher>
+  <main-class>com.oracle.javafx.scenebuilder.app.SceneBuilderApp</main-class>
+  <signed>true</signed>
+  <app-store>false</app-store></jpackage-state>
