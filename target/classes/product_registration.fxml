@@ -15,12 +15,12 @@
                 <Font size="23.0" />
             </font>
         </Label>
-      <Label layoutX="180.0" layoutY="155.0" text="Product ID">
+      <Label disable="true" layoutX="180.0" layoutY="155.0" text="Product ID" visible="false">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="productID" layoutX="337.0" layoutY="153.0" promptText="Enter Product ID" />
+      <TextField fx:id="productID" disable="true" layoutX="337.0" layoutY="153.0" promptText="Enter Product ID" visible="false" />
       <Label layoutX="165.0" layoutY="227.0" text="Product Name">
          <font>
             <Font size="18.0" />

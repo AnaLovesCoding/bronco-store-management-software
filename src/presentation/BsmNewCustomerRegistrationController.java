@@ -11,6 +11,9 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import remoteapi.Address.Address;
+import remoteapi.Address.PostAddressApi;
+import remoteapi.product.PostProductApi;
 
 import java.io.IOException;
 
@@ -21,7 +24,7 @@ public class BsmNewCustomerRegistrationController {
     @FXML
     private TextArea welcomeText;
     @FXML
-    private TextField firstName,lastName,phone,number,street,city,state,zip,broncoID,errorField;
+    private TextField firstName,lastName,phone,number,street,city,state,zip,broncoID,errorField,addressId;
     @FXML
     private DatePicker dob;
     @FXML
@@ -97,6 +100,15 @@ public class BsmNewCustomerRegistrationController {
                     city.getText(), state.getText(),
                     zip.getText(), broncoID.getText(),
                     isProfessor.isSelected(), isStudent.isSelected()));
+
+          Address address = new Address();
+          address.setStreet(street.getText());
+          address.setNumber(Integer.parseInt(number.getText()));
+          address.setCity(city.getText());
+          address.setState(state.getText());
+          address.setZip(Integer.parseInt(zip.getText()));
+          PostAddressApi postAddressApi = new PostAddressApi(address);
+          new Thread(postAddressApi).start();
 
             if(isStudent.isSelected() && (isProfessor.isSelected()==false)){
                 Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("student_registration.fxml"));
