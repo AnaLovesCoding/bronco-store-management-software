@@ -3,20 +3,29 @@ package presentation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import remoteapi.product.PostProductApi;
+import remoteapi.product.Product;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class productRegistrationController {
+public class productRegistrationController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
     @FXML
-    private TextField productID,productName,price,errorField;
+    private TextField productID, productName, price, errorField;
+    @FXML
+    private ProgressIndicator progressBar;
+
 
     @FXML
     protected void onLogoutClick(ActionEvent event) throws IOException {
@@ -26,6 +35,7 @@ public class productRegistrationController {
         stage.setScene(scene);
         stage.show();
     }
+
     @FXML
     protected void onAdminPageClick(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("admin.fxml"));
@@ -34,32 +44,45 @@ public class productRegistrationController {
         stage.setScene(scene);
         stage.show();
     }
+
     @FXML
-    protected void onAddProductClick(ActionEvent event) throws IOException {
-        if(productID.getText().isEmpty()){
+    protected void onAddProductClick() {
+        if (productName.getText().isEmpty()) {
             errorField.setVisible(true);
-            errorField.setText(String.format("ShopProduct ID cannot be empty"));
+            errorField.setText("ShopProduct Name cannot be empty");
             return;
         }
-        if(productName.getText().isEmpty()){
+        if (price.getText().isEmpty()) {
             errorField.setVisible(true);
-            errorField.setText(String.format("ShopProduct Name cannot be empty"));
+            errorField.setText("price cannot be empty");
             return;
         }
-        if(price.getText().isEmpty()){
-            errorField.setVisible(true);
-            errorField.setText(String.format("price cannot be empty"));
-            return;
-        }
-        else{
-            errorField.setVisible(true);
-            errorField.setText(String.format("ShopProduct Added Successfully"));
-            productID.setText(null);
-            productName.setText(null);
-            price.setText(null);
-            return;
-        }
+        submitProduct();
     }
 
-}
+    private void submitProduct() {
+        progressBar.setVisible(true);
+        Product product = new Product();
+        product.setName(productName.getText());
+        product.setCurrentPrice(Long.valueOf(price.getText()));
 
+        PostProductApi postProductApi = new PostProductApi(product);
+        postProductApi.setOnSucceeded(event -> resetAll());
+
+        new Thread(postProductApi).start();
+    }
+
+    private void resetAll() {
+        progressBar.setVisible(false);
+        errorField.setVisible(true);
+        errorField.setText("ShopProduct Added Successfully");
+        productID.setText(null);
+        productName.setText(null);
+        price.setText(null);
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        progressBar.setVisible(false);
+    }
+}

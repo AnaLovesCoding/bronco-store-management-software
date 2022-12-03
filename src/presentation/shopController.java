@@ -14,8 +14,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import remoteapi.product.FetchProductsApi;
 import remoteapi.product.Product;
-import remoteapi.product.ProductsApi;
 
 import java.io.IOException;
 import java.net.URL;
@@ -45,9 +45,9 @@ public class shopController implements Initializable {
         quantity.setCellValueFactory(new PropertyValueFactory<ShopProduct, String>("quantity"));
 
 
-        ProductsApi productsApi = new ProductsApi();
-        productsApi.setOnSucceeded(event -> {
-            Product[] products = productsApi.getValue();
+        FetchProductsApi fetchProductsApi = new FetchProductsApi();
+        fetchProductsApi.setOnSucceeded(event -> {
+            Product[] products = fetchProductsApi.getValue();
             ArrayList<ShopProduct> productArrayList = new ArrayList<>();
 
             for (int i = 0; i < products.length; i++) {
@@ -65,9 +65,7 @@ public class shopController implements Initializable {
             tableData = FXCollections.observableArrayList(productArrayList);
             shopTable.setItems(tableData);
         });
-        new Thread(productsApi).start();
-
-
+        new Thread(fetchProductsApi).start();
     }
 
     @FXML

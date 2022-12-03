@@ -119,6 +119,7 @@ public class BsmNewCustomerRegistrationController {
               stage.setScene(scene);
               stage.show();
           }
+
         }
     }
     @FXML
