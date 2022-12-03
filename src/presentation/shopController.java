@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -36,6 +37,9 @@ public class shopController implements Initializable {
     @FXML
     private TableColumn id, name, price, quantity;
 
+    @FXML
+    private ProgressIndicator progressBar;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         shopTable.getColumns().addAll(id, name, price, quantity);
@@ -46,26 +50,31 @@ public class shopController implements Initializable {
 
 
         FetchProductsApi fetchProductsApi = new FetchProductsApi();
+
         fetchProductsApi.setOnSucceeded(event -> {
-            Product[] products = fetchProductsApi.getValue();
-            ArrayList<ShopProduct> productArrayList = new ArrayList<>();
-
-            for (int i = 0; i < products.length; i++) {
-                Product product = products[i];
-                productArrayList.add(
-                        new ShopProduct(
-                                product.getProductId(),
-                                product.getName(),
-                                product.getCurrentPrice(),
-                                FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-                        )
-                );
-            }
-
-            tableData = FXCollections.observableArrayList(productArrayList);
-            shopTable.setItems(tableData);
+            handleProductsResult(fetchProductsApi.getValue());
         });
         new Thread(fetchProductsApi).start();
+    }
+
+    private void handleProductsResult(Product[] products) {
+        progressBar.setVisible(false);
+        ArrayList<ShopProduct> productArrayList = new ArrayList<>();
+
+        for (int i = 0; i < products.length; i++) {
+            Product product = products[i];
+            productArrayList.add(
+                    new ShopProduct(
+                            product.getProductId(),
+                            product.getName(),
+                            product.getCurrentPrice(),
+                            FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+                    )
+            );
+        }
+
+        tableData = FXCollections.observableArrayList(productArrayList);
+        shopTable.setItems(tableData);
     }
 
     @FXML
