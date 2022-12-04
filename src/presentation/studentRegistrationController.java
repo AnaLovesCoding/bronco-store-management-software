@@ -46,6 +46,7 @@ public class studentRegistrationController {
                             "Start Date: %s, Grad Date: %s",
                     major.getText(), minor.getText(),
                     startDate.getValue(), gradDate.getValue()));
+
             Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("welcome_customer.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
