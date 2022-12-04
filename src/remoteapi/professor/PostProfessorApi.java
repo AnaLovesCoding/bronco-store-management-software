@@ -1,21 +1,25 @@
-package remoteapi.Address;
+package remoteapi.professor;
 import com.google.gson.Gson;
 import javafx.concurrent.Task;
+import remoteapi.student.Student;
+
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-public class PostAddressApi extends Task<Void> {
+public class PostProfessorApi extends Task<Void> {
     private final Gson gson = new Gson();
-    private final Address address;
+    private final Professor professor;
     private final String url;
-    public PostAddressApi(Address address) {
-        this.address = address;
-        this.url = "http://localhost:8080/api/address";
+
+    public PostProfessorApi(Professor professor) {
+        this.professor = professor;
+        this.url = "http://localhost:8080/api/professor";
     }
+
     @Override
     protected Void call() throws Exception {
-        String body = gson.toJson(address);
+        String body = gson.toJson(professor);
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
@@ -28,6 +32,7 @@ public class PostAddressApi extends Task<Void> {
                 request,
                 HttpResponse.BodyHandlers.ofString()
         );
+
         return null;
     }
 }

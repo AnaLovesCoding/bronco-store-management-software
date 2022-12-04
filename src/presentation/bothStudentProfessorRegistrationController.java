@@ -10,6 +10,10 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import remoteapi.professor.PostProfessorApi;
+import remoteapi.professor.Professor;
+import remoteapi.student.PostStudentApi;
+import remoteapi.student.Student;
 
 import java.io.IOException;
 
@@ -21,8 +25,6 @@ public class bothStudentProfessorRegistrationController {
     private TextField major,minor,errorText,department,office,research;
     @FXML
     private DatePicker startDate,gradDate;
-    @FXML
-    private TextArea studentAndProfessorDetailsText;
 
     @FXML
     protected void onSubmitClick(ActionEvent event)throws IOException {
@@ -56,20 +58,49 @@ public class bothStudentProfessorRegistrationController {
             errorText.setText(String.format("research cannot be empty"));
             return;
         }
-        else {
-            errorText.setVisible(false);
-            studentAndProfessorDetailsText.setText(String.format("Major: %s, " +
-                            "Minor: %s,Start Date: %s, Grad Date: %s, " +
-                            "Department: %s, Office: %s, Research: %s",
-                    major.getText(),minor.getText(),
-                    startDate.getValue(),gradDate.getValue(),
-                    department.getText(),office.getText(),research.getText()));
+
+        Student student = new Student();
+
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        String broncoId = stage.getUserData().toString();
+
+        student.setBroncoId(broncoId);
+        student.setMajor(major.getText());
+        student.setMinor(minor.getText());
+        student.setStartDate(String.valueOf(startDate.getValue()));
+        student.setGradDate(String.valueOf(gradDate.getValue()));
+
+        PostStudentApi postStudentApi = new PostStudentApi(student);
+        postStudentApi.setOnSucceeded(apiEvent -> {
+            System.out.println("Student saved");
+        });
+        new Thread(postStudentApi).start();
+
+        Professor professor = new Professor();
+
+        Node node1 = (Node) event.getSource();
+        Stage stage1 = (Stage) node1.getScene().getWindow();
+        String broncoId1 = stage1.getUserData().toString();
+
+        professor.setBroncoId(broncoId1);
+        professor.setDepartment(department.getText());
+        professor.setOffice(office.getText());
+        professor.setResearch(research.getText());
+
+        PostProfessorApi postProfessorApi = new PostProfessorApi(professor);
+        postProfessorApi.setOnSucceeded(apiEvent -> {
+            System.out.println("Professor saved");
+        });
+        new Thread(postProfessorApi).start();
+
+
             Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("welcome_customer.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-        }
+
     }
     @FXML
     protected void onCancelClick(ActionEvent event)throws IOException {

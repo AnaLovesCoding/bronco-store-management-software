@@ -1,25 +1,26 @@
-package remoteapi.BSMUser;
+package remoteapi.student;
+
 import com.google.gson.Gson;
 import javafx.concurrent.Task;
-import remoteapi.product.Product;
 
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-public class PostBSMUserApi extends Task<Void> {
+
+public class PostStudentApi extends Task<Void> {
     private final Gson gson = new Gson();
-    private final BSMUser bsmUser;
+    private final Student student;
     private final String url;
 
-    public PostBSMUserApi(BSMUser bsmUser) {
-        this.bsmUser = bsmUser;
-        this.url = "http://localhost:8080/api/bsmUser";
+    public PostStudentApi(Student student) {
+        this.student = student;
+        this.url = "http://localhost:8080/api/student";
     }
 
     @Override
     protected Void call() throws Exception {
-        String body = gson.toJson(bsmUser);
+        String body = gson.toJson(student);
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()

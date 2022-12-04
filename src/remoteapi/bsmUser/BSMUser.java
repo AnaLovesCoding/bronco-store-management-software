@@ -1,4 +1,4 @@
-package remoteapi.BSMUser;
+package remoteapi.bsmUser;
 import lombok.*;
 
 @ToString

@@ -1,4 +1,4 @@
-package remoteapi.Address;
+package remoteapi.address;
 import lombok.*;
 
 @ToString

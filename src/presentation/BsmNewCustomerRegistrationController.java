@@ -10,10 +10,10 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import remoteapi.Address.Address;
-import remoteapi.Address.PostAddressApi;
-import remoteapi.BSMUser.BSMUser;
-import remoteapi.BSMUser.PostBSMUserApi;
+import remoteapi.address.Address;
+import remoteapi.address.PostAddressApi;
+import remoteapi.bsmUser.BSMUser;
+import remoteapi.bsmUser.PostBSMUserApi;
 
 import java.io.IOException;
 
@@ -30,6 +30,7 @@ public class BsmNewCustomerRegistrationController {
 
     @FXML
     protected void onRegisterClick(ActionEvent event) throws IOException {
+
         if (firstName.getText().isEmpty()) {
             errorField.setVisible(true);
             errorField.setText(String.format("First name cannot be empty"));
@@ -84,43 +85,12 @@ public class BsmNewCustomerRegistrationController {
             errorField.setVisible(true);
             errorField.setText(String.format("DOB cannot be empty"));
         } else {
-            Address address = new Address();
-            address.setStreet(street.getText());
-            address.setNumber(Integer.parseInt(number.getText()));
-            address.setCity(city.getText());
-            address.setState(state.getText());
-            address.setZip(Integer.parseInt(zip.getText()));
-            PostAddressApi postAddressApi = new PostAddressApi(address);
-            postAddressApi.setOnSucceeded(apiEvent -> {
-                System.out.println("Address saved");
-            });
-            new Thread(postAddressApi).start();
-
-
-            BSMUser bsmUser = new BSMUser();
-            bsmUser.setBroncoId(broncoID.getText());
-            bsmUser.setFirstName(firstName.getText());
-            bsmUser.setLastName(lastName.getText());
-            bsmUser.setDob(dob.getValue().toString());
-            bsmUser.setPhone(phone.getText());
-            if (isStudent.isSelected() && !isProfessor.isSelected()) {
-                bsmUser.setUserType("STUDENT");
-            }
-            if (isProfessor.isSelected() && !isStudent.isSelected()) {
-                bsmUser.setUserType("PROFESSOR");
-            }
-            if (isStudent.isSelected() && isProfessor.isSelected()) {
-                bsmUser.setUserType("STUDENT_AND_PROFESSOR");
-            }
-            PostBSMUserApi postBSMUserApi = new PostBSMUserApi(bsmUser);
-            postBSMUserApi.setOnSucceeded(apiEvent -> {
-                System.out.println("User Saved: " + bsmUser);
-            });
-            new Thread(postBSMUserApi).start();
-
+            addressCall();
+            bsmUserCall();
             if (isStudent.isSelected() && (!isProfessor.isSelected())) {
                 Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("student_registration.fxml"));
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setUserData(broncoID.getText());
                 scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
@@ -128,6 +98,7 @@ public class BsmNewCustomerRegistrationController {
             if (isProfessor.isSelected() && (!isStudent.isSelected())) {
                 Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("professor_registration.fxml"));
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setUserData(broncoID.getText());
                 scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
@@ -135,11 +106,49 @@ public class BsmNewCustomerRegistrationController {
             if (isProfessor.isSelected() && isStudent.isSelected()) {
                 Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("both_student_professor_registration.fxml"));
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setUserData(broncoID.getText());
                 scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
             }
         }
+    }
+
+    private void bsmUserCall() {
+        BSMUser bsmUser = new BSMUser();
+        bsmUser.setBroncoId(broncoID.getText());
+        bsmUser.setFirstName(firstName.getText());
+        bsmUser.setLastName(lastName.getText());
+        bsmUser.setDob(dob.getValue().toString());
+        bsmUser.setPhone(phone.getText());
+        if (isStudent.isSelected() && !isProfessor.isSelected()) {
+            bsmUser.setUserType("STUDENT");
+        }
+        if (isProfessor.isSelected() && !isStudent.isSelected()) {
+            bsmUser.setUserType("PROFESSOR");
+        }
+        if (isStudent.isSelected() && isProfessor.isSelected()) {
+            bsmUser.setUserType("STUDENT_AND_PROFESSOR");
+        }
+        PostBSMUserApi postBSMUserApi = new PostBSMUserApi(bsmUser);
+        postBSMUserApi.setOnSucceeded(apiEvent -> {
+            System.out.println("User Saved: " + bsmUser);
+        });
+        new Thread(postBSMUserApi).start();
+    }
+
+    private void addressCall() {
+        Address address = new Address();
+        address.setStreet(street.getText());
+        address.setNumber(Integer.parseInt(number.getText()));
+        address.setCity(city.getText());
+        address.setState(state.getText());
+        address.setZip(Integer.parseInt(zip.getText()));
+        PostAddressApi postAddressApi = new PostAddressApi(address);
+        postAddressApi.setOnSucceeded(apiEvent -> {
+            System.out.println("Address saved");
+        });
+        new Thread(postAddressApi).start();
     }
 
     @FXML

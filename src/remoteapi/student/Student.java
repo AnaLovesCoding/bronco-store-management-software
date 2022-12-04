@@ -1,19 +1,16 @@
-package remoteapi.Student;
+package remoteapi.student;
 
 import lombok.*;
-
-import java.util.Date;
 
 @ToString
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class Student {
-    private Long broncoId;
-    private Date startDate;
-    private Date gradDate;
+    private String broncoId;
+    private String startDate;
+    private String gradDate;
     private String major;
     private String minor;
 }
