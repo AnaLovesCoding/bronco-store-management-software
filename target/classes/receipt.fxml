@@ -16,19 +16,17 @@
                 <Font size="23.0" />
             </font>
         </Label>
-      <Button layoutX="358.0" layoutY="522.0" mnemonicParsing="false" onAction="#onLogoutClick" prefHeight="35.0" prefWidth="98.0" text="Logout">
+      <Button layoutX="358.0" layoutY="544.0" mnemonicParsing="false" onAction="#onLogoutClick" prefHeight="35.0" prefWidth="98.0" text="Logout">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <TableView layoutX="56.0" layoutY="221.0" prefHeight="253.0" prefWidth="681.0">
+      <TableView layoutX="56.0" layoutY="221.0" prefHeight="203.0" prefWidth="681.0">
          <columns>
-            <TableColumn prefWidth="43.740386962890625" text="ID" />
-            <TableColumn prefWidth="227.5" text="Product Name" />
-            <TableColumn prefWidth="62.5" text="Quantity" />
-            <TableColumn prefWidth="92.5" text="Actual Price" />
-            <TableColumn prefWidth="114.5" text="Discount(%)" />
-            <TableColumn minWidth="0.0" prefWidth="139.0" text="Price After Discount" />
+            <TableColumn fx:id="productId" prefWidth="109.0" text="ID" />
+            <TableColumn fx:id="productName" prefWidth="230.5" text="Product Name" />
+            <TableColumn fx:id="quantity" prefWidth="142.5" text="Quantity" />
+            <TableColumn fx:id="price" prefWidth="198.0" text="Price" />
          </columns>
       </TableView>
       <Label layoutX="488.0" layoutY="475.0" text="Total Price">
@@ -36,25 +34,31 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField layoutX="570.0" layoutY="474.0" prefHeight="26.0" prefWidth="167.0" />
+      <TextField fx:id="totalPrice" layoutX="570.0" layoutY="474.0" prefHeight="26.0" prefWidth="167.0" />
       <Label layoutX="56.0" layoutY="125.0" text="Order ID">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField layoutX="198.0" layoutY="124.0" />
+      <TextField fx:id="orderId" layoutX="198.0" layoutY="124.0" />
       <Label layoutX="56.0" layoutY="167.0" text="Customer Name">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField layoutX="198.0" layoutY="166.0" />
+      <TextField fx:id="customerName" layoutX="198.0" layoutY="166.0" />
       <Label layoutX="424.0" layoutY="126.0" text="Date and Time">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField layoutX="548.0" layoutY="125.0" />
+      <TextField fx:id="dateAndTime" layoutX="548.0" layoutY="125.0" />
+      <Label layoutX="488.0" layoutY="444.0" text="Discount">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="discount" layoutX="570.0" layoutY="443.0" prefHeight="26.0" prefWidth="167.0" />
     </children>
     <effect>
         <DropShadow />

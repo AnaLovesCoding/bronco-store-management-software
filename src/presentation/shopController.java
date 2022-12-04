@@ -1,5 +1,6 @@
 package presentation;
 
+import data.CartProduct;
 import data.ShopProduct;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +24,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import static data.CartData.cartProductsList;
+
 public class shopController implements Initializable {
 
     private Stage stage;
@@ -35,18 +38,18 @@ public class shopController implements Initializable {
     private TableView shopTable;
 
     @FXML
-    private TableColumn id, name, price, quantity;
+    private TableColumn id, name, price, quantityComboBox;
 
     @FXML
     private ProgressIndicator progressBar;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        shopTable.getColumns().addAll(id, name, price, quantity);
+        shopTable.getColumns().addAll(id, name, price, quantityComboBox);
         id.setCellValueFactory(new PropertyValueFactory<ShopProduct, String>("id"));
         name.setCellValueFactory(new PropertyValueFactory<ShopProduct, String>("name"));
         price.setCellValueFactory(new PropertyValueFactory<ShopProduct, String>("price"));
-        quantity.setCellValueFactory(new PropertyValueFactory<ShopProduct, String>("quantity"));
+        quantityComboBox.setCellValueFactory(new PropertyValueFactory<ShopProduct, String>("quantityComboBox"));
 
 
         FetchProductsApi fetchProductsApi = new FetchProductsApi();
@@ -59,10 +62,10 @@ public class shopController implements Initializable {
 
     private void handleProductsResult(Product[] products) {
         progressBar.setVisible(false);
+
         ArrayList<ShopProduct> productArrayList = new ArrayList<>();
 
-        for (int i = 0; i < products.length; i++) {
-            Product product = products[i];
+        for (Product product : products) {
             productArrayList.add(
                     new ShopProduct(
                             product.getProductId(),
@@ -90,11 +93,34 @@ public class shopController implements Initializable {
     protected void switchToViewCart(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("cart.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        ObservableList<ShopProduct> finalData = tableData.filtered(shopProduct -> shopProduct
+                .getQuantityComboBox()
+                .getSelectionModel()
+                .getSelectedIndex() > 0
+        );
+
+        cartProductsList.clear();
+
+        finalData.forEach(shopProduct -> {
+            String quantityString = shopProduct.getQuantityComboBox()
+                    .getSelectionModel()
+                    .getSelectedItem()
+                    .toString();
+            int quantity = Integer.parseInt(quantityString);
+            cartProductsList.add(
+                    new CartProduct(
+                            shopProduct.getId(),
+                            shopProduct.getName(),
+                            quantityString,
+                            shopProduct.getPrice() * quantity
+                    )
+            );
+        });
+
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
-
-
 }
 

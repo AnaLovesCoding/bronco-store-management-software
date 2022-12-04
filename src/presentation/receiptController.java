@@ -15,7 +15,7 @@ public class receiptController {
     private Scene scene;
     private Parent root;
     @FXML
-    protected void onLogoutClick(ActionEvent event)throws IOException {
+    protected void onLogoutClick(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("bsm_home.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);

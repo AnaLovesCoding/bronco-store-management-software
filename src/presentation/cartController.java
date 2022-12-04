@@ -1,8 +1,6 @@
 package presentation;
 
 import data.CartProduct;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,33 +17,30 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static data.CartData.cartProductsList;
+
 public class cartController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
 
-    ObservableList<CartProduct> tableData;
-
     @FXML
     private TableView cartTable;
 
     @FXML
-    private TableColumn id, name, actualPrice, discount, priceAfterDiscount, quantity;
+    private TableColumn id, name, price, quantity;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        cartTable.getColumns().addAll(id, name, quantity, actualPrice, discount, priceAfterDiscount);
+        cartTable.getColumns().addAll(id, name, quantity, price);
         id.setCellValueFactory(new PropertyValueFactory<CartProduct, String>("id"));
         name.setCellValueFactory(new PropertyValueFactory<CartProduct, String>("name"));
         quantity.setCellValueFactory(new PropertyValueFactory<CartProduct, String>("quantity"));
-        actualPrice.setCellValueFactory(new PropertyValueFactory<CartProduct, String>("actualPrice"));
-        discount.setCellValueFactory(new PropertyValueFactory<CartProduct, String>("discount"));
-        priceAfterDiscount.setCellValueFactory(new PropertyValueFactory<CartProduct, String>("priceAfterDiscount"));
+        price.setCellValueFactory(new PropertyValueFactory<CartProduct, String>("price"));
 
-        tableData = FXCollections.observableArrayList(new CartProduct(0, "book", 1, 3.0, 1, 2.0));
-        cartTable.setItems(tableData);
-
+        cartTable.setItems(cartProductsList);
     }
+
 
     @FXML
     protected void onLogoutClick(ActionEvent event) throws IOException {

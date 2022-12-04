@@ -10,16 +10,16 @@ public class ShopProduct {
     private final SimpleLongProperty id;
     private final SimpleStringProperty name;
     private final SimpleLongProperty price;
-    private ComboBox quantity;
+    private ComboBox quantityComboBox;
 
     public ShopProduct(Long id, String name, Long price, ObservableList<Integer> quantityList) {
-        ComboBox quantityComboBox = new ComboBox(quantityList);
-        quantityComboBox.getSelectionModel().select(0);
+        ComboBox comboBox = new ComboBox(quantityList);
+        comboBox.getSelectionModel().select(0);
 
         this.id = new SimpleLongProperty(id);
         this.name = new SimpleStringProperty(name);
         this.price = new SimpleLongProperty(price);
-        this.quantity = quantityComboBox;
+        this.quantityComboBox = comboBox;
     }
 
     public Long getId() {
@@ -46,11 +46,11 @@ public class ShopProduct {
         this.price.set(price);
     }
 
-    public ComboBox getQuantity() {
-        return quantity;
+    public ComboBox getQuantityComboBox() {
+        return quantityComboBox;
     }
 
-    public void setQuantity(ComboBox quantity) {
-        this.quantity = quantity;
+    public void setQuantityComboBox(ComboBox quantity) {
+        this.quantityComboBox = quantity;
     }
 }
