@@ -8,6 +8,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import remoteapi.discount.Discount;
+import remoteapi.discount.PostDiscountApi;
+import remoteapi.professor.PostProfessorApi;
 
 import java.io.IOException;
 
@@ -41,13 +44,22 @@ public class updateDiscountController {
             errorField.setText(String.format("Enter Discount cannot be empty"));
             return;
         }
-        else{
+
+        Discount discount = new Discount();
+       discount.setStudentDiscount(Long.valueOf(studentDiscount.getText()));
+       discount.setProfessorDiscount(Long.valueOf(professorDiscount.getText()));
+
+        PostDiscountApi postDiscountApi = new PostDiscountApi(discount);
+        postDiscountApi.setOnSucceeded(apiEvent -> {
+            System.out.println("Discount saved");
+        });
+        new Thread(postDiscountApi).start();
+
+
             errorField.setVisible(true);
             errorField.setText(String.format("New Discount Updated Successfully"));
             studentDiscount.setText(null);
             professorDiscount.setText(null);
-            return;
-        }
     }
 
 }
