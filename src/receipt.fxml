@@ -21,7 +21,7 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <TableView layoutX="56.0" layoutY="221.0" prefHeight="203.0" prefWidth="681.0">
+      <TableView fx:id="receiptTable" layoutX="56.0" layoutY="221.0" prefHeight="203.0" prefWidth="681.0">
          <columns>
             <TableColumn fx:id="productId" prefWidth="109.0" text="ID" />
             <TableColumn fx:id="productName" prefWidth="230.5" text="Product Name" />
