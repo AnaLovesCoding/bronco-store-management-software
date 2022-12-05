@@ -10,16 +10,15 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import remoteapi.discount.Discount;
 import remoteapi.discount.PostDiscountApi;
-import remoteapi.professor.PostProfessorApi;
 
 import java.io.IOException;
 
 public class updateDiscountController {
-    private Stage stage,stage1;
+    private Stage stage, stage1;
     private Scene scene;
     private Parent root;
     @FXML
-    private TextField errorField,studentDiscount,professorDiscount;
+    private TextField errorField, studentDiscount, professorDiscount;
 
     @FXML
     protected void onLogoutClick(ActionEvent event) throws IOException {
@@ -29,6 +28,7 @@ public class updateDiscountController {
         stage.setScene(scene);
         stage.show();
     }
+
     @FXML
     protected void onAdminPageClick(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("admin.fxml"));
@@ -37,17 +37,18 @@ public class updateDiscountController {
         stage.setScene(scene);
         stage.show();
     }
+
     @FXML
     protected void onUpdateDiscountClick(ActionEvent event) throws IOException {
-        if(studentDiscount.getText().isEmpty() || professorDiscount.getText().isEmpty()){
+        if (studentDiscount.getText().isEmpty() || professorDiscount.getText().isEmpty()) {
             errorField.setVisible(true);
             errorField.setText(String.format("Discount cannot be empty"));
             return;
         }
 
         Discount discount = new Discount();
-       discount.setStudentDiscount(Long.valueOf(studentDiscount.getText()));
-       discount.setProfessorDiscount(Long.valueOf(professorDiscount.getText()));
+        discount.setStudentDiscount(Long.valueOf(studentDiscount.getText()));
+        discount.setProfessorDiscount(Long.valueOf(professorDiscount.getText()));
 
         PostDiscountApi postDiscountApi = new PostDiscountApi(discount);
         postDiscountApi.setOnSucceeded(apiEvent -> {
@@ -55,13 +56,10 @@ public class updateDiscountController {
         });
         new Thread(postDiscountApi).start();
 
-
-
-
-            errorField.setVisible(true);
-            errorField.setText(String.format("New Discount Updated Successfully"));
-            studentDiscount.setText(null);
-            professorDiscount.setText(null);
+        errorField.setVisible(true);
+        errorField.setText(String.format("New Discount Updated Successfully"));
+        studentDiscount.setText(null);
+        professorDiscount.setText(null);
     }
 
 }

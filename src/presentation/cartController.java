@@ -1,5 +1,6 @@
 package presentation;
 
+import data.BsmUserData;
 import data.CartProduct;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,8 +14,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import remoteapi.discount.Discount;
-import remoteapi.discount.FetchDiscountApi;
 
 import java.io.IOException;
 import java.net.URL;
@@ -35,6 +34,8 @@ public class cartController implements Initializable {
     @FXML
     private TextField discount, totalPrice;
 
+    Long totalPriceValue = 0L;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         cartTable.getColumns().addAll(id, name, quantity, price);
@@ -45,7 +46,6 @@ public class cartController implements Initializable {
 
         cartTable.setItems(cartProductsList);
     }
-
 
     @FXML
     protected void onLogoutClick(ActionEvent event) throws IOException {
@@ -76,19 +76,21 @@ public class cartController implements Initializable {
 
     @FXML
     protected void onShowPriceClick(ActionEvent clickEvent) throws IOException {
-
         discount.setVisible(true);
         totalPrice.setVisible(true);
 
-        FetchDiscountApi fetchDiscountApi = new FetchDiscountApi();
-        fetchDiscountApi.setOnSucceeded(event -> {
-            handleDiscount(fetchDiscountApi.getValue()[0]);
+        discount.setText(BsmUserData.user.getDiscount().toString() + "%");
+        cartProductsList.forEach(cartProduct -> {
+            Long price = Long.parseLong(Integer.toString(
+                    (int) cartProduct.getPrice()
+            ));
+            totalPriceValue = totalPriceValue + price;
         });
-        new Thread(fetchDiscountApi).start();
-    }
 
-    private void handleDiscount(Discount discount) {
+        Long discountValue = BsmUserData.user.getDiscount();
+        totalPriceValue = totalPriceValue * (discountValue / 100);
 
+        totalPrice.setText(totalPriceValue.toString());
     }
 }
 

@@ -17,6 +17,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import remoteapi.bsmUser.BSMUser;
 import remoteapi.bsmUser.FetchUserByBroncoIdApi;
+import remoteapi.discount.Discount;
+import remoteapi.discount.FetchDiscountApi;
 import remoteapi.product.FetchProductsApi;
 import remoteapi.product.Product;
 
@@ -142,12 +144,21 @@ public class shopController implements Initializable {
                     broncoIdErrorLabel.setVisible(true);
                 } else {
                     BsmUserData.user = user;
-                    System.out.println(user);
-                    goToCart(event);
+
+                    FetchDiscountApi fetchDiscountApi = new FetchDiscountApi();
+                    fetchDiscountApi.setOnSucceeded(event3 -> {
+                        handleDiscount(event, fetchDiscountApi.getValue()[0]);
+                    });
+                    new Thread(fetchDiscountApi).start();
                 }
             });
             new Thread(fetchUserByBroncoIdApi).start();
         }
+    }
+
+    private void handleDiscount(ActionEvent event, Discount discount) {
+        BsmUserData.discount = discount;
+        goToCart(event);
     }
 
     private void goToCart(ActionEvent event) {
