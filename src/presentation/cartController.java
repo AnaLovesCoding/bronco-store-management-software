@@ -34,7 +34,7 @@ public class cartController implements Initializable {
     @FXML
     private TextField discount, totalPrice;
 
-    Long totalPriceValue = 0L;
+    Double totalPriceValue = 0.0;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -81,14 +81,13 @@ public class cartController implements Initializable {
 
         discount.setText(BsmUserData.user.getDiscount().toString() + "%");
         cartProductsList.forEach(cartProduct -> {
-            Long price = Long.parseLong(Integer.toString(
-                    (int) cartProduct.getPrice()
-            ));
-            totalPriceValue = totalPriceValue + price;
+            totalPriceValue = totalPriceValue + cartProduct.getPrice();
         });
 
-        Long discountValue = BsmUserData.user.getDiscount();
-        totalPriceValue = totalPriceValue * (discountValue / 100);
+        double discountValue = Double.parseDouble(BsmUserData.user.getDiscount().toString());
+        totalPriceValue = totalPriceValue - (
+                totalPriceValue * (discountValue / 100)
+        );
 
         totalPrice.setText(totalPriceValue.toString());
     }
