@@ -45,6 +45,8 @@ public class cartController implements Initializable {
         price.setCellValueFactory(new PropertyValueFactory<CartProduct, String>("price"));
 
         cartTable.setItems(cartProductsList);
+
+        setUpPrice();
     }
 
     @FXML
@@ -74,11 +76,7 @@ public class cartController implements Initializable {
         stage.show();
     }
 
-    @FXML
-    protected void onShowPriceClick(ActionEvent clickEvent) throws IOException {
-        discount.setVisible(true);
-        totalPrice.setVisible(true);
-
+    private void setUpPrice() {
         discount.setText(BsmUserData.user.getDiscount().toString() + "%");
         cartProductsList.forEach(cartProduct -> {
             totalPriceValue = totalPriceValue + cartProduct.getPrice();
