@@ -1,5 +1,6 @@
 package presentation;
 
+import data.BsmUserData;
 import data.CartProduct;
 import data.ShopProduct;
 import javafx.collections.FXCollections;
@@ -11,11 +12,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ProgressIndicator;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import remoteapi.bsmUser.BSMUser;
+import remoteapi.bsmUser.FetchUserByBroncoIdApi;
 import remoteapi.product.FetchProductsApi;
 import remoteapi.product.Product;
 
@@ -28,6 +29,11 @@ import static data.CartData.cartProductsList;
 
 public class shopController implements Initializable {
 
+    @FXML
+    public TextField broncoIdTextField;
+
+    @FXML
+    public Label broncoIdErrorLabel;
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -58,6 +64,8 @@ public class shopController implements Initializable {
             handleProductsResult(fetchProductsApi.getValue());
         });
         new Thread(fetchProductsApi).start();
+
+        broncoIdErrorLabel.setVisible(false);
     }
 
     private void handleProductsResult(Product[] products) {
@@ -91,8 +99,6 @@ public class shopController implements Initializable {
 
     @FXML
     protected void switchToViewCart(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("cart.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
         ObservableList<ShopProduct> finalData = tableData.filtered(shopProduct -> shopProduct
                 .getQuantityComboBox()
@@ -118,6 +124,40 @@ public class shopController implements Initializable {
             );
         });
 
+        String broncoId = broncoIdTextField.getText();
+
+        if (broncoId == null || broncoId.isBlank()) {
+            broncoIdErrorLabel.setText("Bronco ID can't be empty");
+            broncoIdErrorLabel.setVisible(true);
+        } else {
+            broncoIdErrorLabel.setVisible(false);
+            progressBar.setVisible(true);
+
+            FetchUserByBroncoIdApi fetchUserByBroncoIdApi = new FetchUserByBroncoIdApi(broncoId);
+            fetchUserByBroncoIdApi.setOnSucceeded(event2 -> {
+                progressBar.setVisible(false);
+                BSMUser user = fetchUserByBroncoIdApi.getValue();
+                if (user.getBroncoId() == null) {
+                    broncoIdErrorLabel.setText("User not found for this Bronco ID");
+                    broncoIdErrorLabel.setVisible(true);
+                } else {
+                    BsmUserData.user = user;
+                    System.out.println(user);
+                    goToCart(event);
+                }
+            });
+            new Thread(fetchUserByBroncoIdApi).start();
+        }
+    }
+
+    private void goToCart(ActionEvent event) {
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getClassLoader().getResource("cart.fxml"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

@@ -1,4 +1,5 @@
 package remoteapi.discount;
+
 import lombok.*;
 
 @ToString

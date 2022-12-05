@@ -10,8 +10,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import remoteapi.discount.Discount;
+import remoteapi.discount.FetchDiscountApi;
 
 import java.io.IOException;
 import java.net.URL;
@@ -29,6 +32,8 @@ public class cartController implements Initializable {
 
     @FXML
     private TableColumn id, name, price, quantity;
+    @FXML
+    private TextField discount, totalPrice;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -69,5 +74,21 @@ public class cartController implements Initializable {
         stage.show();
     }
 
+    @FXML
+    protected void onShowPriceClick(ActionEvent clickEvent) throws IOException {
+
+        discount.setVisible(true);
+        totalPrice.setVisible(true);
+
+        FetchDiscountApi fetchDiscountApi = new FetchDiscountApi();
+        fetchDiscountApi.setOnSucceeded(event -> {
+            handleDiscount(fetchDiscountApi.getValue()[0]);
+        });
+        new Thread(fetchDiscountApi).start();
+    }
+
+    private void handleDiscount(Discount discount) {
+
+    }
 }
 

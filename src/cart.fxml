@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="discount" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.cartController">
+<AnchorPane fx:id="discount1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.cartController">
     <children>
         <Label alignment="CENTER" layoutX="380.0" layoutY="58.0" text="CART" textAlignment="CENTER" textFill="#bd2848">
             <font>
@@ -44,13 +44,15 @@
                 <Font size="18.0" />
             </font>
         </Label>
-        <TextField fx:id="totalPrice" layoutX="570.0" layoutY="474.0" prefHeight="26.0" prefWidth="167.0" />
+        <TextField fx:id="totalPrice" editable="false" layoutX="570.0" layoutY="474.0" prefHeight="26.0" prefWidth="167.0" visible="false" />
       <Label layoutX="488.0" layoutY="435.0" text="Discount">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="discount" layoutX="570.0" layoutY="434.0" prefHeight="26.0" prefWidth="167.0" />
+      <TextField fx:id="discount" editable="false" layoutX="566.0" layoutY="434.0" prefHeight="26.0" prefWidth="167.0" visible="false" />
+      <Button layoutX="325.0" layoutY="448.0" mnemonicParsing="false" onAction="#onShowPriceClick" text="Show Total Price" />
+     
     </children>
     <effect>
         <DropShadow />

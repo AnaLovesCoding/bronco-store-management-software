@@ -15,7 +15,7 @@ import remoteapi.professor.PostProfessorApi;
 import java.io.IOException;
 
 public class updateDiscountController {
-    private Stage stage;
+    private Stage stage,stage1;
     private Scene scene;
     private Parent root;
     @FXML
@@ -41,7 +41,7 @@ public class updateDiscountController {
     protected void onUpdateDiscountClick(ActionEvent event) throws IOException {
         if(studentDiscount.getText().isEmpty() || professorDiscount.getText().isEmpty()){
             errorField.setVisible(true);
-            errorField.setText(String.format("Enter Discount cannot be empty"));
+            errorField.setText(String.format("Discount cannot be empty"));
             return;
         }
 
@@ -54,6 +54,8 @@ public class updateDiscountController {
             System.out.println("Discount saved");
         });
         new Thread(postDiscountApi).start();
+
+
 
 
             errorField.setVisible(true);

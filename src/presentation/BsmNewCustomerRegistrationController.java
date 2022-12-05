@@ -18,6 +18,7 @@ import remoteapi.bsmUser.PostBSMUserApi;
 import java.io.IOException;
 
 public class BsmNewCustomerRegistrationController {
+
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -107,6 +108,7 @@ public class BsmNewCustomerRegistrationController {
                 Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("both_student_professor_registration.fxml"));
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setUserData(broncoID.getText());
+                stage.setUserData(isStudent.isSelected());
                 scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
@@ -159,5 +161,4 @@ public class BsmNewCustomerRegistrationController {
         stage.setScene(scene);
         stage.show();
     }
-
 }
